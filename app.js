@@ -71,6 +71,7 @@ const gameController = (function (Player1, Player2) {
 
     let isGameOver = false;
 
+    const gameOver = () => isGameOver;
 
     const playRound = () => {
         const Board = board.getBoard();
@@ -131,13 +132,19 @@ const gameController = (function (Player1, Player2) {
 
     return {
         playRound,
-        getActivePlayer
+        getActivePlayer,
+        gameOver
     };
 
 })(Player1, Player2);
 
 const game = gameController;
-game.playRound();
+
+const startGame = () => {
+    while (!game.gameOver()) {
+        game.playRound();
+    }
+}
 
 
 
