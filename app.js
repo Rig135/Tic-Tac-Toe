@@ -14,23 +14,24 @@ const GameBoard = (function () {
 
     const getBoard = () => board;
 
-    const addMarker = (player) => {
-        let position = prompt(`${player.name}'s turn....  Enter the position (1-9): `);
-        while (position > 9 || position < 1) {
-            console.error("Please Enter correct position: ");
-            position = prompt(`${player.name}'s turn....  Enter the position (1-9): `);
-        }
-        let selectedRow = Math.floor((position - 1) / columns);
-        let selectedCol = Math.floor((position - 1) % columns);
+    const addMarker = (player, selectedRow, selectedCol) => {
+        // let position = prompt(`${player.name}'s turn....  Enter the position (1-9): `);
+        // while (position > 9 || position < 1) {
+        //     console.error("Please Enter correct position: ");
+        //     position = prompt(`${player.name}'s turn....  Enter the position (1-9): `);
+        // }
+        // let selectedRow = Math.floor((position - 1) / columns);
+        // let selectedCol = Math.floor((position - 1) % columns);
 
-        while (board[selectedRow][selectedCol] != "") {
+        if (board[selectedRow][selectedCol] != "") {
             console.error("Position Already Taken!!!!");
-            position = prompt(`${player.name}'s turn....  Enter the position (1-9): `);
-            selectedRow = Math.floor((position - 1) / columns);
-            selectedCol = Math.floor((position - 1) % columns);
+            return false;
+            // position = prompt(`${player.name}'s turn....  Enter the position (1-9): `);
+            // selectedRow = Math.floor((position - 1) / columns);
+            // selectedCol = Math.floor((position - 1) % columns);
         }
         board[selectedRow][selectedCol] = player.marker;
-
+        return true;
     }
 
     return { getBoard, addMarker };
@@ -44,8 +45,8 @@ const player = (name, marker) => {
     return { name, marker }
 };
 
-const Player1 = player("harshit", "X");
-const Player2 = player("vaskil", "O");
+const Player1 = player("Harshit", "❌");
+const Player2 = player("Vaskil", "⭕");
 
 
 
@@ -73,9 +74,10 @@ const gameController = (function (Player1, Player2) {
 
     const gameOver = () => isGameOver;
 
-    const playRound = () => {
+    const playRound = (row, col) => {
         const Board = board.getBoard();
-        board.addMarker(getActivePlayer());
+        board.addMarker(getActivePlayer(), row, col);
+
 
         //logic for winning condition
         const marker = getActivePlayer().marker;
@@ -133,19 +135,61 @@ const gameController = (function (Player1, Player2) {
     return {
         playRound,
         getActivePlayer,
-        gameOver
+        gameOver,
+        getBoard: board.getBoard
     };
 
 })(Player1, Player2);
 
-const game = gameController;
 
-const startGame = () => {
-    while (!game.gameOver()) {
-        game.playRound();
+function ScreenController() {
+    const game = gameController;
+    const playerTurnDiv = document.querySelector('.turn');
+    const boardDiv = document.querySelector('.board');
+
+    const updateScreen = () => {
+        //clear board
+        boardDiv.textContent = "";
+
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        //Displaying Players turn
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+        //render Board
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const cellButton = document.createElement('button');
+                cellButton.classList.add('cell');
+
+                cellButton.dataset.row = i;
+                cellButton.dataset.column = j;
+
+                cellButton.textContent = board[i][j];
+                boardDiv.appendChild(cellButton);
+            }
+        }
     }
-}
 
+    function clickHandlerBoard(e) {
+        if (game.gameOver == true) {
+            return;
+        }
+        const selectedCol = parseInt(e.target.dataset.column);
+        const selectedRow = parseInt(e.target.dataset.row);
+
+        if (isNaN(selectedCol) || isNaN(selectedRow)) return;
+
+        game.playRound(selectedRow, selectedCol);
+        updateScreen();
+    }
+    boardDiv.addEventListener('click', clickHandlerBoard);
+
+    updateScreen();
+};
+
+ScreenController();
 
 
 
