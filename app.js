@@ -118,16 +118,19 @@ const gameController = (function (Player1, Player2) {
         if (emptySpace === 0 && isGameOver === false) {
             console.log("Its a DRAW!!!!");
             isGameOver = true;
+            return "draw";
         }
 
         if (isGameOver == false) {
             switchPlayerTurn();
             printNewRound();
+            return "continue";
         }
         else {
             console.log(`${getActivePlayer().name} Has Won!!!`);
-            return;
+            return "win";
         }
+
 
     }
     printNewRound();
@@ -181,8 +184,20 @@ function ScreenController() {
 
         if (isNaN(selectedCol) || isNaN(selectedRow)) return;
 
-        game.playRound(selectedRow, selectedCol);
+        const finished = game.playRound(selectedRow, selectedCol);
         updateScreen();
+
+        if (finished === "win") {
+
+            boardDiv.style.pointerEvents = "none";
+            playerTurnDiv.textContent = `${game.getActivePlayer().name} wins! 🎉`;
+        }
+        else if (finished === "draw") {
+            boardDiv.style.pointerEvents = "none";
+            playerTurnDiv.textContent = `It's a Draw!`;
+        }
+
+
     }
     boardDiv.addEventListener('click', clickHandlerBoard);
 
