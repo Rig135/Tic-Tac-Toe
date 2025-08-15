@@ -7,12 +7,48 @@
     <title>Tic-Tac-Toe</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <dialog class="myDialog">
+        <form method="dialog" id="playerform">
+            <p>ENTER NAME</p>
+            <div class="playerMarker">
+                <div class="P1">
+                    <input type="text" name="Player1name" id="Player1name" required placeholder="Player 1">
+                    <select name="markerP1" id="markerP1">
+                        <option value="1">❌</option>
+                        <option value="2">😄</option>
+                        <option value="3">😎</option>
+                        <option value="4">😂</option>
+                        <option value="5">😈</option>
+                        <option value="6">🥶</option>
+                        <option value="7">😏</option>
+                        <option value="8">🤖</option>
+                    </select>
+                </div>
+                <div class="P2">
+                    <input type="text" name="Player2name" id="Player2name" required placeholder="Player 2">
+                    <select name="markerP2" id="markerP2">
+                        <option value="1">⭕</option>
+                        <option value="2">😡</option>
+                        <option value="3">🤓</option>
+                        <option value="4">😭</option>
+                        <option value="5">😇</option>
+                        <option value="6">🥵</option>
+                        <option value="7">😳</option>
+                        <option value="8">👽</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="start">Start</button>
+        </form>
+    </dialog>
     <div class="container">
         <h1 class="heading">Tic-Tac-Toe</h1>
         <div class="turn"></div>
@@ -21,8 +57,10 @@
         <button class="restart" role="button">Restart</button>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="app.js"></script>
+
 </body>
 
 </html>

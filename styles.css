@@ -105,7 +105,7 @@ video {
     font-size: 40px;
     padding: 20px 0px;
     text-align: center;
-    font-family: "Rampart One", sans-serif;
+    font-family: "Luckiest Guy", cursive;
     font-weight: 400;
     font-style: normal;
 }
@@ -115,7 +115,7 @@ video {
     font-size: 20px;
     padding: 20px 0px;
     text-align: center;
-    font-family: "Rampart One", sans-serif;
+    font-family: "Luckiest Guy", cursive;
     font-weight: 400;
     font-style: normal;
 }
@@ -148,7 +148,8 @@ video {
 
 
 /* CSS */
-.restart {
+.restart,
+.start {
     margin-top: 50px;
     background: #FF4742;
     border: 1px solid #FF4742;
@@ -158,7 +159,7 @@ video {
     color: #FFFFFF;
     cursor: pointer;
     display: inline-block;
-    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-family: "Luckiest Guy", cursive;
     font-size: 16px;
     font-weight: 800;
     line-height: 16px;
@@ -175,12 +176,91 @@ video {
 }
 
 .restart:hover,
+.start:hover,
+.start:active,
 .restart:active {
     background-color: initial;
     background-position: 0 0;
     color: #FF4742;
 }
 
-.retart:active {
+.restart:active,
+.start:active {
     opacity: .5;
+}
+
+.start {
+    display: block;
+    margin: 0 auto;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+}
+
+dialog {
+    border: none;
+    border-radius: 20px;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    color: yellow;
+    font-family: "Luckiest Guy", cursive;
+}
+
+dialog p {
+    font-size: 27px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.playerMarker {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.P1,
+.P2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+input {
+    height: 35px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.25);
+    outline: none;
+
+    font-family: "Luckiest Guy", cursive;
+    color: black;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+input:focus {
+    outline: 2px solid black;
+}
+
+
+select {
+    appearance: none;
+    /* removes default browser arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    height: 40px;
+    background-color: #1e1e1e;
+    color: white;
+    border: 2px solid #ff4081;
+    border-radius: 8px;
+    padding: 8px 32px 8px 12px;
+    font-size: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E<path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
 }
